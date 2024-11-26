@@ -6,6 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>軟體工程師的尋寶之路</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Print-specific styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+                font-size: 12px;
+            }
+
+            header,
+            footer {
+                display: none;
+            }
+
+            main {
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
+
+            h1, h2, h3 {
+                color: black;
+            }
+
+            .container {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            ul, li {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-gradient-to-br from-pink-50 via-blue-50 to-purple-50 text-gray-800 font-sans">
@@ -30,43 +71,58 @@
         <!-- Header Section -->
         <div class="text-center mb-10">
             <h1 class="text-3xl font-bold text-gray-800">小馬 Sean</h1>
-            <p class="text-lg text-gray-600">前端工程師 | 致力於創造美觀且高效的網頁體驗</p>
+            <p class="text-lg text-gray-600">系統分析師 | 專注於網站與應用程式設計開發</p>
         </div>
 
-        <!-- Career Objective -->
+        <!-- Self Introduction -->
         <section class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">職涯目標</h2>
-            <p>成為一個著名且偉大的前端工程師，為用戶創造美觀且高效的網頁體驗，並推動技術創新與設計美學的結合。</p>
+            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">自我介紹</h2>
+            <p>本人從大學畢業後就一直致力於網站與手機應用的前後端系統開發，對於網站或各種應用程式開發，有相當的經驗。曾經與團隊合作規劃執行大型專案，也曾獨力為商家建構網站。我喜歡與人合作，喜歡將一個一個產品落實的成就感。</p>
         </section>
 
-        <!-- Skills -->
+        <!-- Work Experience -->
         <section class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">技術專長</h2>
-            <ul class="list-disc pl-6 space-y-2">
-                <li>HTML5：熟練運用語意化標籤及 SEO 最佳實踐。</li>
-                <li>CSS3：掌握 Flexbox、Grid Layout 和動畫效果。</li>
-                <li>JavaScript (ES6+)：專注於模組化、事件驅動和高效能程式開發。</li>
-                <li>React：熟悉 React Hooks、Redux 和 Context API。</li>
-                <li>Vue：掌握 Vue 3 Composition API 及 Vuex。</li>
-                <li>Angular：熟悉 Angular CLI 和 RxJS。</li>
-            </ul>
-        </section>
-
-        <!-- Professional Experience -->
-        <section class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">專業經驗</h2>
+            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">工作經驗</h2>
             <ul class="space-y-4">
                 <li>
-                    <strong class="block text-lg text-gray-800">某科技公司 | 前端工程師 (2021 年 6 月 - 現在)</strong>
+                    <strong class="block text-lg text-gray-800">2022-09 ~ 現在 | 前進國際 | 系統分析師</strong>
                     <ul class="list-disc pl-6 space-y-2">
-                        <li>負責內部管理系統的前端設計與開發，主導 React 和 Redux 的技術實現。</li>
-                        <li>提升頁面性能 30%，改善使用者體驗。</li>
+                        <li>與客戶討論需求，進行系統分析，並進行規格書撰寫，協助客戶確認需求與規格。</li>
+                        <li>提供規格並說明需求予工程師開發。</li>
+                        <li>測試條件撰寫，自動測試開發。</li>
                     </ul>
                 </li>
                 <li>
-                    <strong class="block text-lg text-gray-800">某知名軟體公司 | 實習生 (2020 年 7 月 - 2021 年 5 月)</strong>
+                    <strong class="block text-lg text-gray-800">2022-05 ~ 2022-08 | 復華高中 | 代理資訊教師</strong>
                     <ul class="list-disc pl-6 space-y-2">
-                        <li>協助開發內部專案網站，熟悉 HTML5 和 CSS3 的實踐應用。</li>
+                        <li>開發學校需要之 App。</li>
+                        <li>已經上架復華幼兒園app & 復華報修app</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="block text-lg text-gray-800">2021-01 ~ 2021-10 | TC Gaming | 顧問</strong>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>協助客戶判斷系統問題。</li>
+                        <li>協調軟硬體工程師解決系統問題。</li>
+                        <li>協助財務處理報表相關問題 (Oracle Database)。</li>
+                        <li>監督與規劃確保開發人員修正進度符合預期。</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="block text-lg text-gray-800">2016-05 ~ 2020-12 | 昕力資訊 | 軟體開發工程師</strong>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>網站前端開發：Angular、JavaScript、HTML、CSS、SCSS。</li>
+                        <li>後端開發：C#.NET、SQL Server。</li>
+                        <li>手機開發：Android、Java。</li>
+                        <li>參與專案：富邦 MAPP 投保系統、一卡通 X LinePay 支付系統、高市府城市幣後台開發等。</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="block text-lg text-gray-800">2014-09 ~ 2016-04 | 希達資訊 | 工程師</strong>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>電腦硬體相關維修與布建。</li>
+                        <li>協助操作 Linux (CentOS) 系統，架設網站，設定權限控制。</li>
+                        <li>協助學校網站撰寫 (PHP)。</li>
                     </ul>
                 </li>
             </ul>
@@ -74,31 +130,19 @@
 
         <!-- Education -->
         <section class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">教育背景</h2>
+            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">學歷</h2>
             <ul class="list-disc pl-6 space-y-2">
-                <li><strong>某知名大學 | 資訊工程學系學士 (2016 年 - 2020 年)</strong></li>
+                <li><strong>2010-09 ~ 2014-06 | 國立台東大學 | 資訊工程學系</strong></li>
             </ul>
         </section>
 
-        <!-- Contact Information -->
+        <!-- Certifications -->
         <section class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">聯絡方式</h2>
-            <ul class="list-none pl-0 space-y-2">
-                <li>Email: <a href="mailto:sean@example.com"
-                        class="text-purple-600 hover:underline">sean@example.com</a></li>
-                <li>手機: 0912-345-678</li>
-                <li>LinkedIn: <a href="https://linkedin.com/in/sean" class="text-purple-600 hover:underline"
-                        target="_blank">linkedin.com/in/sean</a></li>
-                <li>GitHub: <a href="https://github.com/sean" class="text-purple-600 hover:underline"
-                        target="_blank">github.com/sean</a></li>
+            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">證照</h2>
+            <ul class="list-disc pl-6 space-y-2">
+                <li>中華企業資源規劃協會 - BI 規劃師</li>
             </ul>
         </section>
-
-        <!-- Call to Action -->
-        <div class="text-center">
-            <a href="/contact"
-                class="bg-purple-500 text-white px-6 py-2 rounded-lg shadow hover:bg-purple-600 transition">留言給我</a>
-        </div>
     </main>
 
     <!-- Footer -->
