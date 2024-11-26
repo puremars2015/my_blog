@@ -122,7 +122,7 @@ def list_article(page):
     # articles轉型成為list,且只取10筆
     articles = list(articles)[0+(page-1)*10:10+(page-1)*10]
 
-    if len(articles) < 3:
+    if len(articles) < 1:
         articles = [
             {
                 "image": "B0B0B0.png",

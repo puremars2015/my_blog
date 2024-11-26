@@ -46,7 +46,7 @@
           <img src="{{ url_for('static', filename=article.image) }}" alt="文章圖片" class="w-full h-48 object-cover">
           <div class="p-6">
             <h4 class="text-xl font-bold text-gray-900">{{ article.title }}</h4>
-            <p class="mt-2 text-gray-600">{{ article.description|safe }}</p>
+            <p class="mt-2 text-gray-600">{{ article.description }}</p>
             <a href="{{ article.link }}" class="mt-4 inline-block text-{{ article.link_color }}-600 hover:text-{{ article.link_color }}-800">閱讀更多 →</a>
           </div>
         </div>
