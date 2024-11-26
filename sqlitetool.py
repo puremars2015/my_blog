@@ -33,7 +33,18 @@ class SQLiteTool:
             else:
                 cursor.execute(query)
             result = cursor.fetchall()
-            return result
+
+            # 獲取表格的欄位名稱
+            column_names = [description[0] for description in cursor.description]
+
+            # 將每一行轉換為 JSON 物件
+            json_objects = []
+            for row in result:
+                json_object = dict(zip(column_names, row))
+                json_objects.append(json_object)
+
+
+            return json_objects
         except Error as e:
             print(f"查詢失敗: {e}")
             return None

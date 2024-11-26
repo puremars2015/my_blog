@@ -1,11 +1,14 @@
 import random
 from flask import Flask, jsonify, redirect, render_template, request, session, url_for
 from openai import OpenAI
+# import config
 
 from sqlitetool import SQLiteTool
 
 app = Flask(__name__)
 
+## 在此處替換為你的 OpenAI API Key
+# client = OpenAI(api_key=config.openai_api_key)
 
 #favicon.ico
 @app.route('/favicon.ico')
@@ -15,28 +18,26 @@ def favicon():
 # 首頁路由
 @app.route('/')
 def index():
+
+    # 從資料庫讀取文章列表 前三筆
+    db = SQLiteTool("my_blog.db")
+    articles = db.execute_read_query("SELECT id,title,content FROM articles")
+    db.close_connection()
+
+    # articles轉型成為list,且只取前三筆
+    articles = list(articles)[:12]
+
+    # 將articles轉型為上面的形式
     articles = [
         {
             "image": "B0B0B0.png",
-            "title": "測試1標題",
-            "description": "測試1描述",
+            "title": article["title"],
+            # 把content當作description, 但要修改內容變成30個字以內
+            "description": article["content"][:100] + "...",
             "link": "#",
-            "link_color": "purple"
-        },
-        {
-            "image": "ADD8E6.png",
-            "title": "測試2標題",
-            "description": "測試2描述",
-            "link": "#",
-            "link_color": "blue"
-        },
-        {
-            "image": "E6E6FA.png",
-            "title": "測試3標題",
-            "description": "測試3s描述",
-            "link": "#",
-            "link_color": "pink"
+            "link_color": random.choice(["purple", "blue", "pink"])
         }
+        for article in articles
     ]
 
     # 在渲染模板時傳遞數據
