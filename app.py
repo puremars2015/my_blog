@@ -74,6 +74,16 @@ def index():
 def edit_article():
     return render_template('edit_article.html')
 
+# 編輯頁面路由
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+# 編輯頁面路由
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
 # 讀取文章內容
 @app.route('/read_article/<int:id>')
 def read_article(id):
@@ -158,6 +168,42 @@ def list_article(page):
         prev_page_url=prev_page_url,
         next_page_url=next_page_url,)
 
+
+# 路由：處理表單提交
+@app.route('/api/new_message', methods=['POST'])
+def submit_contact_message():
+    # 從表單中提取資料
+    title = request.json.get('title')
+    content = request.json.get('content')
+    
+    # 確保資料完整
+    if not title or not content:
+        return jsonify({'status': 'error', 'message': '主旨與內容皆為必填'}), 400
+
+
+    # 檢查是不是有messages table
+    db = SQLiteTool("my_blog.db")
+    check_table_query = """
+    SELECT name FROM sqlite_master WHERE type='table' AND name='messages';
+    """
+    table = db.execute_read_query(check_table_query)
+
+    if not table:
+        create_table_query = """
+        CREATE TABLE IF NOT EXISTS messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            content TEXT NOT NULL
+        );
+        """
+        db.execute_query(create_table_query)
+
+    # 將資料寫入資料庫
+    db.execute_query("INSERT INTO messages (title, content) VALUES (?, ?)", (title, content))
+    db.close_connection()
+    
+    # 返回回應
+    return jsonify({'message': 'message sended'}), 201
 
 # api 新增文章
 @app.route('/api/create', methods=['POST'])

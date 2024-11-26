@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>軟體工程師的尋寶之路</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body class="bg-gradient-to-br from-pink-50 via-blue-50 to-purple-50 text-gray-800 font-sans">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white shadow-md sticky top-0 z-10">
+        <div class="container mx-auto flex items-center justify-between py-4 px-6">
+            <a href="/"><h1 class="text-2xl font-bold">軟體工程師的尋寶之路</h1></a>
+            <nav class="space-x-4 hidden md:flex">
+                <a href="/" class="hover:underline">首頁</a>
+                <a href="/list_article/1" class="hover:underline">文章列表</a>
+                <a href="/about" class="hover:underline">關於我</a>
+                <a href="/contact" class="hover:underline">聯絡我</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contact Form Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-6 bg-white shadow-lg rounded-lg max-w-lg">
+            <h2 class="text-3xl font-bold text-gray-800 text-center py-6">聯絡我</h2>
+
+            <form class="space-y-6 px-6 pb-8" onsubmit="submitForm(event)">
+                <!-- Title Input -->
+                <div>
+                    <label for="title_text" class="block text-lg font-medium text-gray-700">主旨</label>
+                    <input id="title_text" type="text" required
+                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg"
+                        placeholder="輸入主旨">
+                </div>
+                <!-- Content Input -->
+                <div>
+                    <label for="content_text" class="block text-lg font-medium text-gray-700">內容</label>
+                    <textarea id="content_text" required rows="10"
+                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-500 focus:outline-none text-lg"
+                        placeholder="輸入內容"></textarea>
+                </div>
+                <!-- Submit Button -->
+                <div class="pt-4">
+                    <button type="submit"
+                        class="w-full bg-purple-500 text-white px-6 py-3 rounded-lg shadow hover:bg-purple-600 transition text-lg">
+                        送出
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-6">
+        <div class="container mx-auto text-center px-6">
+            <p>© 2024 軟體工程師的尋寶之路 Blog. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function submitForm(event) {
+            event.preventDefault(); // 防止表單的默認提交行為
+
+            // 獲取表單資料
+            const title = document.getElementById('title_text').value;
+            const content = document.getElementById('content_text').value;
+
+            // 驗證表單資料
+            if (!title || !content) {
+                alert('主旨與內容皆為必填');
+                return;
+            }
+
+            // 使用 Axios 發送 POST 請求
+            axios.post('/api/new_message', {
+                title: title,
+                content: content
+            })
+                .then(response => {
+                    alert(response.data); // 顯示後端返回的訊息
+                })
+                .catch(error => {
+                    if (error.response) {
+                        alert(`錯誤: ${error.response.data.message || '提交失敗'}`);
+                    } else {
+                        alert('提交失敗，請稍後再試！');
+                    }
+                    console.error('提交錯誤:', error);
+                });
+        }
+    </script>
+
+</body>
+
+</html>
