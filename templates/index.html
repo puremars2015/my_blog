@@ -11,7 +11,7 @@
   <!-- Header -->
   <header class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white shadow-md sticky top-0 z-10">
     <div class="container mx-auto flex items-center justify-between py-4 px-6">
-      <h1 class="text-2xl font-bold">軟體工程師的尋寶之路</h1>
+      <a href="/"><h1 class="text-2xl font-bold">軟體工程師的尋寶之路</h1></a>
       <nav class="space-x-4 hidden md:flex">
         <a href="/" class="hover:underline">首頁</a>
         <a href="/list_article/1" class="hover:underline">文章列表</a>
@@ -31,7 +31,7 @@
     <div class="container mx-auto text-center px-6">
       <h2 class="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">懂錢的人才會有錢</h2>
       <p class="mt-4 text-gray-700 text-lg">這裡是一個利用專業技術，探索金融市場的頻道</p>
-      <a href="/list_article" class="mt-6 inline-block bg-purple-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-purple-600 transition">閱讀文章</a>
+      <a href="/list_article/1" class="mt-6 inline-block bg-purple-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-purple-600 transition">閱讀文章</a>
     </div>
   </section>
 
@@ -46,7 +46,7 @@
           <img src="{{ url_for('static', filename=article.image) }}" alt="文章圖片" class="w-full h-48 object-cover">
           <div class="p-6">
             <h4 class="text-xl font-bold text-gray-900">{{ article.title }}</h4>
-            <p class="mt-2 text-gray-600">{{ article.description }}</p>
+            <p class="mt-2 text-gray-600">{{ article.description|safe }}</p>
             <a href="{{ article.link }}" class="mt-4 inline-block text-{{ article.link_color }}-600 hover:text-{{ article.link_color }}-800">閱讀更多 →</a>
           </div>
         </div>

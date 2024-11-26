@@ -19,15 +19,15 @@ def favicon():
 @app.route('/')
 def index():
 
-    # 從資料庫讀取文章列表 前三筆
+    # 從資料庫讀取文章列表 前六筆
     db = SQLiteTool("my_blog.db")
     articles = db.execute_read_query("SELECT id,title,content FROM articles ORDER BY id DESC")
     db.close_connection()
 
-    # articles轉型成為list,且只取前三筆
-    articles = list(articles)[:3]
+    # articles轉型成為list,且只取前六筆
+    articles = list(articles)[:6]
 
-    if len(articles) < 3:
+    if len(articles) < 1:
         articles = [
             {
                 "image": "B0B0B0.png",
@@ -88,6 +88,7 @@ def read_article(id):
 # 讀取文章內容
 @app.route('/list_article/<int:page>')
 def list_article(page):
+
     # 從資料庫讀取文章列表 前三筆
     db = SQLiteTool("my_blog.db")
     articles = db.execute_read_query("SELECT id,title,content FROM articles ORDER BY id DESC")
@@ -95,7 +96,7 @@ def list_article(page):
 
     # 分頁數據
     current_page = page
-    total_pages = int(len(articles)/10)
+    total_pages = int(len(articles)/10) if len(articles)%10 == 0 else int(len(articles)/10) + 1
     base_url = "/list_article"
 
     # 構造頁碼數據
@@ -109,7 +110,7 @@ def list_article(page):
     next_page_url = f"{base_url}/{current_page + 1}" if current_page < total_pages else None
 
     # articles轉型成為list,且只取10筆
-    articles = list(articles)[0+page*10:10+page*10]
+    articles = list(articles)[0+(page-1)*10:10+(page-1)*10]
 
     if len(articles) < 3:
         articles = [

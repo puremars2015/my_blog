@@ -1,0 +1,8 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-blog
+    ports:
+      - "5000:5000"

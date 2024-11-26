@@ -6,13 +6,15 @@
   <title>軟體工程師的尋寶之路</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- CKEditor 4 -->
+  <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
 </head>
 <body class="bg-gradient-to-br from-pink-50 via-blue-50 to-purple-50 text-gray-800 font-sans">
 
   <!-- Header -->
   <header class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white shadow-md sticky top-0 z-10">
     <div class="container mx-auto flex items-center justify-between py-4 px-6">
-      <h1 class="text-2xl font-bold">軟體工程師的尋寶之路</h1>
+      <a href="/"><h1 class="text-2xl font-bold">軟體工程師的尋寶之路</h1></a>
       <nav class="space-x-4 hidden md:flex">
         <a href="/" class="hover:underline">首頁</a>
         <a href="/list_article/1" class="hover:underline">文章列表</a>
@@ -40,7 +42,7 @@
           >
         </div>
 
-        <!-- Content Input -->
+        <!-- CKEditor Content Input -->
         <div>
           <label for="content" class="block text-lg font-medium text-gray-700">文章內容</label>
           <textarea
@@ -79,37 +81,81 @@
   </footer>
 
   <script>
-     function submitForm(event) {
-            event.preventDefault(); // 防止表單的默認提交行為
+    function calculateEditorHeight() {
+        const viewportHeight = window.innerHeight; // 獲取瀏覽器窗口高度
+        const headerHeight = document.querySelector('header').offsetHeight; // 獲取 Header 的高度
+        const footerHeight = document.querySelector('footer').offsetHeight; // 獲取 Footer 的高度
+        const padding = 40; // 給編輯器周圍預留一些空間
+        return viewportHeight - headerHeight - footerHeight - padding;
+    }
 
-            // 獲取表單資料
-            const title = document.getElementById('title').value;
-            const content = document.getElementById('content').value;
+    // 初始化 CKEditor 並設置動態高度
+    CKEDITOR.replace('content', {
+        height: calculateEditorHeight() // 根據計算的高度設置
+    });
 
-            // 驗證表單資料
-            if (!title || !content) {
-                alert('主旨與內容皆為必填');
-                return;
-            }
-
-            // 使用 Axios 發送 POST 請求
-            axios.post('/api/create', {
-                title: title,
-                content: content
-            })
-            .then(response => {
-                alert(response.data.message); // 顯示後端返回的訊息
-            })
-            .catch(error => {
-                if (error.response) {
-                    alert(`錯誤: ${error.response.data.message || '提交失敗'}`);
-                } else {
-                    alert('提交失敗，請稍後再試！');
-                }
-                console.error('提交錯誤:', error);
-            });
+    // 動態更新高度
+    window.addEventListener('resize', () => {
+        const editor = CKEDITOR.instances.content; // 獲取 CKEditor 實例
+        if (editor) {
+            editor.resize(editor.container.$.offsetWidth, calculateEditorHeight()); // 更新高度
         }
-  </script>
+    });
+
+
+    function submitForm(event) {
+        event.preventDefault(); // 防止表單的默認提交行為
+
+        // 獲取表單資料
+        const title = document.getElementById('title').value;
+        const content = CKEDITOR.instances.content.getData(); // 使用 CKEditor API 獲取內容
+
+        // 驗證表單資料
+        if (!title || !content) {
+            alert('主旨與內容皆為必填');
+            return;
+        }
+
+        // 使用 Axios 發送 POST 請求
+        axios.post('/api/create', {
+            title: title,
+            content: content
+        })
+        .then(response => {
+            alert(response.data.message); // 顯示後端返回的訊息
+        })
+        .catch(error => {
+            if (error.response) {
+                alert(`錯誤: ${error.response.data.message || '提交失敗'}`);
+            } else {
+                alert('提交失敗，請稍後再試！');
+            }
+            console.error('提交錯誤:', error);
+        });
+    }
+ 
+ 
+
+    // 隱藏 CKEditor 的警告訊息
+
+    // 定義一個變數來保存 setInterval 的 ID
+    let intervalId = setInterval(() => {
+        const warningElement = document.getElementsByClassName('cke_notification cke_notification_warning')[0];
+        if (warningElement) {
+            warningElement.hidden = true;
+        }
+    }, 10);
+
+    // 停止該定時事件的函數
+    function stopInterval() {
+        clearInterval(intervalId); // 停止定時事件
+        console.log('Interval stopped');
+    }
+
+    // 停止事件的示例：3秒後停止定時器
+    setTimeout(stopInterval, 3000);
+
+ </script>
 
 </body>
 </html>
