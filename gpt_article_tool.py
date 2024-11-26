@@ -41,7 +41,7 @@ def save_article(title, content):
 
 if __name__ == "__main__":
     # 連續產生5篇文章
-    for i in range(6):
+    for i in range(3):
         title, content = generate_article()
         print(title)
         print(content)

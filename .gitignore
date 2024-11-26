@@ -162,3 +162,5 @@ cython_debug/
 
 # my secret file
 config.py
+my_blog.db
+test.db

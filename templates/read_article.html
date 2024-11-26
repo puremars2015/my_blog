@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>文章閱讀</title>
+  <title>軟體工程師的尋寶之路</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-pink-50 via-blue-50 to-purple-50 text-gray-800 font-sans">
@@ -11,11 +11,12 @@
   <!-- Header -->
   <header class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white shadow-md sticky top-0 z-10">
     <div class="container mx-auto flex items-center justify-between py-4 px-6">
-      <h1 class="text-2xl font-bold">文章閱讀</h1>
+      <h1 class="text-2xl font-bold">軟體工程師的尋寶之路</h1>
       <nav class="space-x-4 hidden md:flex">
-        <a href="index.html" class="hover:underline">首頁</a>
-        <a href="#articles" class="hover:underline">文章列表</a>
-        <a href="#contact" class="hover:underline">聯絡</a>
+        <a href="/" class="hover:underline">首頁</a>
+        <a href="/list_article/1" class="hover:underline">文章列表</a>
+        <a href="/about" class="hover:underline">關於我</a>
+        <a href="/contact" class="hover:underline">聯絡我</a>
       </nav>
     </div>
   </header>
@@ -25,7 +26,7 @@
     <div class="container mx-auto px-6 bg-white shadow-lg rounded-lg">
       <!-- Article Header -->
       <div class="py-6 px-8 border-b border-gray-200">
-        <h2 class="text-4xl font-bold text-gray-800">探索大自然的祕境</h2>
+        <h2 class="text-4xl font-bold text-gray-800">{{ title }}</h2>
         <div class="mt-4 flex items-center text-gray-600 space-x-4">
           <span>作者：文青小編</span>
           <span>|</span>
@@ -35,24 +36,17 @@
 
       <!-- Article Body -->
       <div class="py-6 px-8 text-gray-700 leading-relaxed">
-        <p class="mb-4">在城市中奔波的日子裡，我們是否遺忘了大自然的美好？這篇文章將帶你走進深山秘境，從晨曦微露到日暮黃昏，探尋那些被遺忘的美麗角落。</p>
-        <p class="mb-4">沿著蜿蜒的山路，我們行進在滿布翠綠的樹林間。耳邊傳來鳥鳴聲，仿佛為旅程譜寫了一首動人的交響曲。偶爾，陽光透過枝葉間的縫隙灑下，像星星點綴在地面上。</p>
-        <img src="https://via.placeholder.com/800x400" alt="探索祕境" class="my-8 w-full rounded-lg shadow-lg">
-        <p class="mb-4">大自然的美不僅僅是靜止的景色，而是充滿生命力的瞬間。我們偶遇一隻蝴蝶翩翩飛舞，也看見清澈的溪水輕輕流過岩石，彷彿在低語著它的故事。</p>
-        <blockquote class="my-8 p-4 bg-blue-100 text-blue-800 border-l-4 border-blue-500 italic">
-          「真正的美麗，往往藏在那些我們不經意間錯過的風景中。」
-        </blockquote>
-        <p class="mb-4">這趟旅程提醒了我，放慢腳步去欣賞生活中的小細節，或許能讓我們的心靈找到更多的平靜與滿足。</p>
+        {{ content|safe }}
       </div>
 
       <!-- Navigation -->
       <div class="py-6 px-8 flex justify-between items-center border-t border-gray-200">
-        <a href="index.html" class="inline-block bg-gray-200 text-gray-700 px-6 py-2 rounded-lg shadow hover:bg-gray-300 transition">
+        <a onclick="history.back()" class="inline-block bg-gray-200 text-gray-700 px-6 py-2 rounded-lg shadow hover:bg-gray-300 transition">
           返回文章列表
         </a>
-        <a href="#" class="inline-block bg-purple-500 text-white px-6 py-2 rounded-lg shadow hover:bg-purple-600 transition">
+        <!-- <a href="#" class="inline-block bg-purple-500 text-white px-6 py-2 rounded-lg shadow hover:bg-purple-600 transition">
           下一篇文章 →
-        </a>
+        </a> -->
       </div>
     </div>
   </main>
@@ -60,7 +54,7 @@
   <!-- Footer -->
   <footer class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-6 mt-10">
     <div class="container mx-auto text-center px-6">
-      <p>© 2024 我的活潑 Blog. All Rights Reserved.</p>
+      <p>© 2024 軟體工程師的尋寶之路 Blog. All Rights Reserved.</p>
     </div>
   </footer>
 

@@ -21,24 +21,50 @@ def index():
 
     # 從資料庫讀取文章列表 前三筆
     db = SQLiteTool("my_blog.db")
-    articles = db.execute_read_query("SELECT id,title,content FROM articles")
+    articles = db.execute_read_query("SELECT id,title,content FROM articles ORDER BY id DESC")
     db.close_connection()
 
     # articles轉型成為list,且只取前三筆
-    articles = list(articles)[:12]
+    articles = list(articles)[:3]
 
-    # 將articles轉型為上面的形式
-    articles = [
-        {
-            "image": "B0B0B0.png",
-            "title": article["title"],
-            # 把content當作description, 但要修改內容變成30個字以內
-            "description": article["content"][:100] + "...",
-            "link": "#",
-            "link_color": random.choice(["purple", "blue", "pink"])
-        }
-        for article in articles
-    ]
+    if len(articles) < 3:
+        articles = [
+            {
+                "image": "B0B0B0.png",
+                "title": "no article",
+                "description": "no article",
+                "link": "#",
+                "link_color": random.choice(["purple", "blue", "pink"])
+            },
+                    {
+                "image": "B0B0B0.png",
+                "title": "no article",
+                "description": "no article",
+                "link": "#",
+                "link_color": random.choice(["purple", "blue", "pink"])
+            },
+                    {
+                "image": "B0B0B0.png",
+                "title": "no article",
+                "description": "no article",
+                "link": "#",
+                "link_color": random.choice(["purple", "blue", "pink"])
+            }
+        ]
+    else:
+        # 將articles轉型為上面的形式
+        articles = [
+            {
+                "image": "B0B0B0.png",
+                "title": article["title"],
+                # 把content當作description, 但要修改內容變成30個字以內
+                "description": article["content"][:100] + "...",
+                "link": "/read_article/" + str(article["id"]),
+                "link_color": random.choice(["purple", "blue", "pink"])
+            }
+            for article in articles
+        ]
+   
 
     # 在渲染模板時傳遞數據
     return render_template("index.html", articles=articles)
@@ -49,14 +75,87 @@ def edit_article():
     return render_template('edit_article.html')
 
 # 讀取文章內容
-@app.route('/read_article')
-def read_article():
-    return render_template('read_article.html')
+@app.route('/read_article/<int:id>')
+def read_article(id):
+
+    # 從資料庫讀取文章
+    db = SQLiteTool("my_blog.db")
+    article = db.execute_read_query("SELECT * FROM articles WHERE id=?", (id,))
+    db.close_connection()
+
+    return render_template('read_article.html', title=article[0]["title"], content=article[0]["content"])
 
 # 讀取文章內容
-@app.route('/list_article')
-def list_article():
-    return render_template('list_article.html')
+@app.route('/list_article/<int:page>')
+def list_article(page):
+    # 從資料庫讀取文章列表 前三筆
+    db = SQLiteTool("my_blog.db")
+    articles = db.execute_read_query("SELECT id,title,content FROM articles ORDER BY id DESC")
+    db.close_connection()
+
+    # 分頁數據
+    current_page = page
+    total_pages = int(len(articles)/10)
+    base_url = "/list_article"
+
+    # 構造頁碼數據
+    page_numbers = [
+        {"number": i, "url": f"{base_url}/{i}", "current": (i == current_page)}
+        for i in range(1, total_pages + 1)
+    ]
+
+    # 上一頁和下一頁的 URL
+    prev_page_url = f"{base_url}/{current_page - 1}" if current_page > 1 else None
+    next_page_url = f"{base_url}/{current_page + 1}" if current_page < total_pages else None
+
+    # articles轉型成為list,且只取10筆
+    articles = list(articles)[0+page*10:10+page*10]
+
+    if len(articles) < 3:
+        articles = [
+            {
+                "image": "B0B0B0.png",
+                "title": "no article",
+                "description": "no article",
+                "link": "#",
+                "link_color": random.choice(["purple", "blue", "pink"])
+            },
+                    {
+                "image": "B0B0B0.png",
+                "title": "no article",
+                "description": "no article",
+                "link": "#",
+                "link_color": random.choice(["purple", "blue", "pink"])
+            },
+                    {
+                "image": "B0B0B0.png",
+                "title": "no article",
+                "description": "no article",
+                "link": "#",
+                "link_color": random.choice(["purple", "blue", "pink"])
+            }
+        ]
+    else:
+        # 將articles轉型為上面的形式
+        articles = [
+            {
+                "image": "B0B0B0.png",
+                "title": article["title"],
+                # 把content當作description, 但要修改內容變成30個字以內
+                "description": article["content"][:100] + "...",
+                "link": "/read_article/" + str(article["id"]),
+                "link_color": random.choice(["purple", "blue", "pink"])
+            }
+            for article in articles
+        ]
+
+    
+   
+    return render_template('list_article.html', 
+        articles=articles,
+        page_numbers=page_numbers,
+        prev_page_url=prev_page_url,
+        next_page_url=next_page_url,)
 
 
 # api 新增文章
