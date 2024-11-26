@@ -14,4 +14,4 @@ COPY . /app
 # 定義容器啟動時執行的指令
 CMD ["python", "app.py"]
 
-EXPOSE 5000
+EXPOSE 22571

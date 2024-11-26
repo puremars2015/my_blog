@@ -24,47 +24,41 @@ def index():
     articles = db.execute_read_query("SELECT id,title,content FROM articles ORDER BY id DESC")
     db.close_connection()
 
+    if articles is None or len(articles) < 1:
+        articles = [
+            {
+                "id": "1",
+                "title": "no article",
+                "content": "no article"
+            },
+                    {
+                "id": "2",
+                "title": "no article",
+                "content": "no article"
+            },
+                    {
+                "id": "3",
+                "title": "no article",
+                "content": "no article"
+            }
+        ]
+
+
     # articles轉型成為list,且只取前六筆
     articles = list(articles)[:6]
 
-    if len(articles) < 1:
-        articles = [
-            {
-                "image": "B0B0B0.png",
-                "title": "no article",
-                "description": "no article",
-                "link": "#",
-                "link_color": random.choice(["purple", "blue", "pink"])
-            },
-                    {
-                "image": "B0B0B0.png",
-                "title": "no article",
-                "description": "no article",
-                "link": "#",
-                "link_color": random.choice(["purple", "blue", "pink"])
-            },
-                    {
-                "image": "B0B0B0.png",
-                "title": "no article",
-                "description": "no article",
-                "link": "#",
-                "link_color": random.choice(["purple", "blue", "pink"])
-            }
-        ]
-    else:
-        # 將articles轉型為上面的形式
-        articles = [
-            {
-                "image": "B0B0B0.png",
-                "title": article["title"],
-                # 把content當作description, 但要修改內容變成30個字以內
-                "description": article["content"][:100] + "...",
-                "link": "/read_article/" + str(article["id"]),
-                "link_color": random.choice(["purple", "blue", "pink"])
-            }
-            for article in articles
-        ]
-   
+    # 將articles轉型為上面的形式
+    articles = [
+        {
+            "image": "B0B0B0.png",
+            "title": article["title"],
+            # 把content當作description, 但要修改內容變成30個字以內
+            "content": article["content"][:100] + "...",
+            "link": "/read_article/" + str(article["id"]),
+            "link_color": random.choice(["purple", "blue", "pink"])
+        }
+        for article in articles
+    ]   
 
     # 在渲染模板時傳遞數據
     return render_template("index.html", articles=articles)
@@ -104,6 +98,26 @@ def list_article(page):
     articles = db.execute_read_query("SELECT id,title,content FROM articles ORDER BY id DESC")
     db.close_connection()
 
+
+    if articles is None or len(articles) < 1:
+        articles = [
+            {
+                "id": "1",
+                "title": "no article",
+                "content": "no article"
+            },
+                    {
+                "id": "2",
+                "title": "no article",
+                "content": "no article"
+            },
+                    {
+                "id": "3",
+                "title": "no article",
+                "content": "no article"
+            }
+        ]
+
     # 分頁數據
     current_page = page
     total_pages = int(len(articles)/10) if len(articles)%10 == 0 else int(len(articles)/10) + 1
@@ -122,43 +136,18 @@ def list_article(page):
     # articles轉型成為list,且只取10筆
     articles = list(articles)[0+(page-1)*10:10+(page-1)*10]
 
-    if len(articles) < 1:
-        articles = [
-            {
-                "image": "B0B0B0.png",
-                "title": "no article",
-                "description": "no article",
-                "link": "#",
-                "link_color": random.choice(["purple", "blue", "pink"])
-            },
-                    {
-                "image": "B0B0B0.png",
-                "title": "no article",
-                "description": "no article",
-                "link": "#",
-                "link_color": random.choice(["purple", "blue", "pink"])
-            },
-                    {
-                "image": "B0B0B0.png",
-                "title": "no article",
-                "description": "no article",
-                "link": "#",
-                "link_color": random.choice(["purple", "blue", "pink"])
-            }
-        ]
-    else:
-        # 將articles轉型為上面的形式
-        articles = [
-            {
-                "image": "B0B0B0.png",
-                "title": article["title"],
-                # 把content當作description, 但要修改內容變成30個字以內
-                "description": article["content"][:100] + "...",
-                "link": "/read_article/" + str(article["id"]),
-                "link_color": random.choice(["purple", "blue", "pink"])
-            }
-            for article in articles
-        ]
+    # 將articles轉型為上面的形式
+    articles = [
+        {
+            "image": "B0B0B0.png",
+            "title": article["title"],
+            # 把content當作description, 但要修改內容變成100個字以內
+            "description": article["content"][:100] + "...",
+            "link": "/read_article/" + str(article["id"]),
+            "link_color": random.choice(["purple", "blue", "pink"])
+        }
+        for article in articles
+    ]
 
     
    
@@ -280,4 +269,4 @@ def update(id):
     return jsonify({'message': 'article updated'}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=22571)
