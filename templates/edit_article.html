@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>編輯文章</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body class="bg-gradient-to-br from-pink-50 via-blue-50 to-purple-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white shadow-md sticky top-0 z-10">
+    <div class="container mx-auto flex items-center justify-between py-4 px-6">
+      <h1 class="text-2xl font-bold">編輯文章</h1>
+      <nav class="space-x-4 hidden md:flex">
+        <a href="index.html" class="hover:underline">首頁</a>
+        <a href="#articles" class="hover:underline">文章列表</a>
+        <a href="#contact" class="hover:underline">聯絡</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Content Section -->
+  <section class="py-16">
+    <div class="container mx-auto px-6 bg-white shadow-lg rounded-lg">
+      <h2 class="text-3xl font-bold text-gray-800 text-center py-6">撰寫新文章</h2>
+
+      <form class="space-y-6 px-8 py-6">
+        <!-- Title Input -->
+        <div>
+          <label for="title" class="block text-lg font-medium text-gray-700">文章標題</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            placeholder="輸入文章標題"
+          >
+        </div>
+
+        <!-- Content Input -->
+        <div>
+          <label for="content" class="block text-lg font-medium text-gray-700">文章內容</label>
+          <textarea
+            id="content"
+            name="content"
+            rows="10"
+            class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-500 focus:outline-none"
+            placeholder="在此輸入文章內容..."></textarea>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-between items-center">
+          <a
+            href="index.html"
+            class="inline-block bg-gray-200 text-gray-700 px-6 py-2 rounded-lg shadow hover:bg-gray-300 transition"
+          >
+            返回
+          </a>
+          <button
+            type="submit"
+            onclick="submitForm(event)"
+            class="bg-purple-500 text-white px-6 py-2 rounded-lg shadow hover:bg-purple-600 transition"
+          >
+            儲存文章
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-6 mt-10">
+    <div class="container mx-auto text-center px-6">
+      <p>© 2024 我的活潑 Blog. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+     function submitForm(event) {
+            event.preventDefault(); // 防止表單的默認提交行為
+
+            // 獲取表單資料
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+
+            // 驗證表單資料
+            if (!title || !content) {
+                alert('主旨與內容皆為必填');
+                return;
+            }
+
+            // 使用 Axios 發送 POST 請求
+            axios.post('/api/create', {
+                title: title,
+                content: content
+            })
+            .then(response => {
+                alert(response.data.message); // 顯示後端返回的訊息
+            })
+            .catch(error => {
+                if (error.response) {
+                    alert(`錯誤: ${error.response.data.message || '提交失敗'}`);
+                } else {
+                    alert('提交失敗，請稍後再試！');
+                }
+                console.error('提交錯誤:', error);
+            });
+        }
+  </script>
+
+</body>
+</html>
