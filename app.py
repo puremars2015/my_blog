@@ -17,8 +17,6 @@ CORS(app)
 def favicon():
     return redirect(url_for('static', filename='favicon.ico'))
     
-
-# 首頁路由
 @app.route('/')
 def index():
 
@@ -66,22 +64,18 @@ def index():
     # 在渲染模板時傳遞數據
     return render_template("index.html", articles=articles)
 
-# 編輯頁面路由
 @app.route('/edit_article')
 def edit_article():
     return render_template('edit_article.html')
 
-# 編輯頁面路由
 @app.route('/about')
 def about():
     return render_template('about.html')
 
-# 編輯頁面路由
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
 
-# 測試javascript操作
 @app.route('/calculate')
 def calculate():
     return render_template('calculate.html')
@@ -166,7 +160,7 @@ def list_article(page):
         next_page_url=next_page_url,)
 
 
-# 路由：處理表單提交
+# api 新增留言
 @app.route('/api/new_message', methods=['POST'])
 def submit_contact_message():
     # 從表單中提取資料
