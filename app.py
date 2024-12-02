@@ -233,9 +233,43 @@ def create():
 # api 取得文章列表
 @app.route('/api/articles', methods=['GET'])
 def readlist():
+    # 從資料庫讀取文章列表 前六筆
     db = SQLiteTool("my_blog.db")
-    articles = db.execute_read_query("SELECT id,content FROM articles")
+    articles = db.execute_read_query("SELECT id,title,content FROM articles ORDER BY id DESC")
     db.close_connection()
+
+    
+    if articles is None or len(articles) < 1:
+        articles = [
+            {
+                "id": "1",
+                "title": "no article",
+                "content": "no article"
+            },
+                    {
+                "id": "2",
+                "title": "no article",
+                "content": "no article"
+            },
+                    {
+                "id": "3",
+                "title": "no article",
+                "content": "no article"
+            }
+        ]
+
+    # 將articles轉型為上面的形式
+    articles = [
+        {
+            "image": "B0B0B0.png",
+            "title": article["title"],
+            # 把content當作description, 但要修改內容變成30個字以內
+            "content": article["content"][:100] + "...",
+            "link": "/read_article/" + str(article["id"]),
+            "link_color": random.choice(["purple", "blue", "pink"])
+        }
+        for article in articles
+    ]   
 
     return jsonify({'articles': articles})
 
