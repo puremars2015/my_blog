@@ -1,11 +1,13 @@
 import random
 from flask import Flask, jsonify, redirect, render_template, request, session, url_for
+from flask_cors import CORS
 from openai import OpenAI
 # import config
 
 from sqlitetool import SQLiteTool
 
 app = Flask(__name__)
+CORS(app)
 
 ## 在此處替換為你的 OpenAI API Key
 # client = OpenAI(api_key=config.openai_api_key)
@@ -14,6 +16,7 @@ app = Flask(__name__)
 @app.route('/favicon.ico')
 def favicon():
     return redirect(url_for('static', filename='favicon.ico'))
+    
 
 # 首頁路由
 @app.route('/')
@@ -77,6 +80,11 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
+# 測試javascript操作
+@app.route('/calculate')
+def calculate():
+    return render_template('calculate.html')
 
 # 讀取文章內容
 @app.route('/read_article/<int:id>')
