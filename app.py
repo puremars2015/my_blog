@@ -97,7 +97,9 @@ def read_article(id):
     article = db.execute_read_query("SELECT * FROM articles WHERE id=?", (id,))
     db.close_connection()
 
-    return render_template('read_article.html', title=article[0]["title"], content=article[0]["content"])
+    request.url_root + 'api/images/'
+
+    return render_template('read_article.html', title=article[0]["title"], content=article[0]["content"], img_url= request.url_root + 'api/images/' + article[0]["img_url"] if article[0]["img_url"] else request.url_root + "static/B0B0B0.png")
 
 # 讀取文章內容
 @app.route('/list_article/<int:page>')
