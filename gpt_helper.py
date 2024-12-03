@@ -274,3 +274,20 @@ class MyGPT:
             })
 
         return results
+    
+    def make_image(self, msg) -> str:
+        response = self.openai.images.generate(
+            model="dall-e-3",
+            prompt=msg,
+            size="1024x1024",
+            quality="standard",
+            n=1,
+        )
+
+        image_url = response.data[0].url
+        return image_url
+    
+    def download_image(self, image_url, filename):
+        image_data = requests.get(image_url).content
+        with open(f'{filename}.png', 'wb') as image_file:
+            image_file.write(image_data)

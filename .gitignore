@@ -166,3 +166,6 @@ my_blog.db
 test.db
 *.db
 my_blog.db
+
+# 圖片檔案不需要上傳
+images/

@@ -1,15 +1,22 @@
 from gpt_helper import MyGPT
 from sqlitetool import SQLiteTool
+import time
 
 
 # 使用chatgpt生成文章
 def generate_article():
     gpt = MyGPT()
     title = gpt.AskGPT("請幫我想一個標題,主要要跟python,人工智慧,還有財務工程有關,一個就好,且是繁體中文的標題")
-    content = gpt.AskGPT(f'請幫我依據這個標題"{title}"寫一篇文章,約500字,且是繁體中文的文章')
-    return title, content
+    img_url = gpt.make_image(title)
 
-def save_article(title, content):
+    # 用時間產生檔案名稱
+    file_name = time.strftime("%Y%m%d%H%M%S")
+
+    gpt.download_image(img_url, 'images/' + file_name)
+    content = gpt.AskGPT(f'請幫我依據這個標題"{title}"寫一篇文章,約500字,且是繁體中文的文章')
+    return title, content, file_name
+
+def save_article(title, content, img_url=None):
 
     if not title or not content:
         raise Exception("title和content不能為空")
@@ -28,12 +35,13 @@ def save_article(title, content):
         CREATE TABLE IF NOT EXISTS articles (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT NOT NULL,
-            content TEXT NOT NULL
+            content TEXT NOT NULL,
+            img_url TEXT NULL
         );
         """
         db.execute_query(create_table_query)
 
-    db.execute_query("INSERT INTO articles (title, content) VALUES (?, ?)", (title, content))
+    db.execute_query("INSERT INTO articles (title, content, img_url) VALUES (?, ?, ?)", (title, content, img_url))
 
     db.close_connection()
 
@@ -41,9 +49,10 @@ def save_article(title, content):
 
 if __name__ == "__main__":
     # 連續產生5篇文章
-    for i in range(3):
-        title, content = generate_article()
+    for i in range(1):
+        title, content, file_name = generate_article()
         print(title)
         print(content)
-        save_article(title, content)
+        save_article(title, content, file_name  + ".png")
+
         print("文章已儲存")
