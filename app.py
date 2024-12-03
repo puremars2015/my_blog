@@ -29,7 +29,7 @@ def index():
 
     # 從資料庫讀取文章列表 前六筆
     db = SQLiteTool("my_blog.db")
-    articles = db.execute_read_query("SELECT id,title,content FROM articles ORDER BY id DESC")
+    articles = db.execute_read_query("SELECT id,title,content,img_url FROM articles ORDER BY id DESC")
     db.close_connection()
 
     if articles is None or len(articles) < 1:
@@ -55,18 +55,19 @@ def index():
     # articles轉型成為list,且只取前六筆
     articles = list(articles)[:6]
 
-    # 將articles轉型為上面的形式
+
+    # 將articles轉型為上面的形式, 並將img_url轉換成網址, 如果沒有圖片就用預設圖片
     articles = [
         {
-            "image": "B0B0B0.png",
+            "img_url": request.url_root + 'api/images/' + article["img_url"] if article["img_url"] else request.url_root + "static/B0B0B0.png",
             "title": article["title"],
             # 把content當作description, 但要修改內容變成30個字以內
-            "content": article["content"][:100] + "...",
+            "description": article["content"][:30] + "...",
             "link": "/read_article/" + str(article["id"]),
             "link_color": random.choice(["purple", "blue", "pink"])
         }
         for article in articles
-    ]   
+    ]
 
     # 在渲染模板時傳遞數據
     return render_template("index.html", articles=articles)
@@ -104,7 +105,7 @@ def list_article(page):
 
     # 從資料庫讀取文章列表 前三筆
     db = SQLiteTool("my_blog.db")
-    articles = db.execute_read_query("SELECT id,title,content FROM articles ORDER BY id DESC")
+    articles = db.execute_read_query("SELECT id,title,content,img_url FROM articles ORDER BY id DESC")
     db.close_connection()
 
 
@@ -148,7 +149,7 @@ def list_article(page):
     # 將articles轉型為上面的形式
     articles = [
         {
-            "image": "B0B0B0.png",
+            "img_url": request.url_root + 'api/images/' + article["img_url"] if article["img_url"] else request.url_root + "static/B0B0B0.png",
             "title": article["title"],
             # 把content當作description, 但要修改內容變成100個字以內
             "description": article["content"][:100] + "...",
@@ -241,7 +242,7 @@ def create():
         """
         db.execute_query(create_table_query)
 
-    db.execute_query("INSERT INTO articles (title, content, img_url) VALUES (?, ?, ?)", (title, content, file_path))
+    db.execute_query("INSERT INTO articles (title, content, img_url) VALUES (?, ?, ?)", (title, content, file.filename))
 
     db.close_connection()
 
@@ -252,7 +253,7 @@ def create():
 def readlist():
     # 從資料庫讀取文章列表 前六筆
     db = SQLiteTool("my_blog.db")
-    articles = db.execute_read_query("SELECT id,title,content FROM articles ORDER BY id DESC")
+    articles = db.execute_read_query("SELECT id,title,content,img_url FROM articles ORDER BY id DESC")
     db.close_connection()
 
     
@@ -278,7 +279,7 @@ def readlist():
     # 將articles轉型為上面的形式
     articles = [
         {
-            "image": "B0B0B0.png",
+            "img_url": request.url_root + 'api/images/' + article["img_url"] if article["img_url"] else request.url_root + "static/B0B0B0.png",
             "title": article["title"],
             # 把content當作description, 但要修改內容變成30個字以內
             "content": article["content"][:100] + "...",

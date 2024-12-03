@@ -45,7 +45,7 @@
 
         {% for article in articles %}
         <div class="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transform transition">
-          <img src="{{ url_for('static', filename=article.image) }}" alt="文章圖片" class="w-full h-48 object-cover">
+          <img src="{{ article.img_url }}" alt="文章圖片" class="w-full h-48 object-cover">
           <div class="p-6">
             <h4 class="text-xl font-bold text-gray-900">{{ article.title }}</h4>
             <p class="mt-2 text-gray-600">{{ article.description }}</p>
