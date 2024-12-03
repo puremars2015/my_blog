@@ -122,6 +122,20 @@
         const title = document.getElementById('title').value;
         const content = CKEDITOR.instances.content.getData(); // 使用 CKEditor API 獲取內容
 
+        // 獲取圖片內容
+        const picture = document.getElementById('upload_picture');
+
+        if (!picture.files.length) {
+          message.textContent = '請選擇圖片檔案！';
+          return;
+        }
+
+        const file = picture.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('title', title);
+        formData.append('content', content);
+
         // 驗證表單資料
         if (!title || !content) {
             alert('主旨與內容皆為必填');
@@ -129,9 +143,10 @@
         }
 
         // 使用 Axios 發送 POST 請求
-        axios.post('/api/create', {
-            title: title,
-            content: content
+        axios.post('/api/create', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         })
         .then(response => {
             alert(response.data.message); // 顯示後端返回的訊息

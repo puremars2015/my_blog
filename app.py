@@ -1,5 +1,6 @@
+import os
 import random
-from flask import Flask, jsonify, redirect, render_template, request, session, url_for
+from flask import Flask, jsonify, redirect, render_template, request, send_from_directory, session, url_for
 from flask_cors import CORS
 from openai import OpenAI
 # import config
@@ -11,6 +12,12 @@ CORS(app)
 
 ## 在此處替換為你的 OpenAI API Key
 # client = OpenAI(api_key=config.openai_api_key)
+
+# 設定上傳目錄
+UPLOAD_IMAGE_FOLDER = 'images'
+os.makedirs(UPLOAD_IMAGE_FOLDER, exist_ok=True)
+app.config['UPLOAD_IMAGE_FOLDER'] = UPLOAD_IMAGE_FOLDER
+
 
 #favicon.ico
 @app.route('/favicon.ico')
@@ -199,11 +206,20 @@ def submit_contact_message():
 # api 新增文章
 @app.route('/api/create', methods=['POST'])
 def create():
-    data = request.get_json()
-    title = data.get('title')
-    content = data.get('content')
+
+    file = request.files['file']
+    title = request.form['title']
+    content = request.form['content']
+
+    if file.filename == '':
+        return jsonify({"error": "未選擇檔案"}), 400
+
     if not title or not content:
         return jsonify({'error': 'missing title or content'}), 400
+    
+    # 儲存圖片檔案
+    file_path = os.path.join(app.config['UPLOAD_IMAGE_FOLDER'], file.filename)
+    file.save(file_path)
 
     # 寫入資料庫
     db = SQLiteTool("my_blog.db")
@@ -219,12 +235,13 @@ def create():
         CREATE TABLE IF NOT EXISTS articles (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT NOT NULL,
-            content TEXT NOT NULL
+            content TEXT NOT NULL,
+            img_url TEXT NULL
         );
         """
         db.execute_query(create_table_query)
 
-    db.execute_query("INSERT INTO articles (title, content) VALUES (?, ?)", (title, content))
+    db.execute_query("INSERT INTO articles (title, content, img_url) VALUES (?, ?, ?)", (title, content, file_path))
 
     db.close_connection()
 
@@ -303,6 +320,11 @@ def update(id):
     db.close_connection()
 
     return jsonify({'message': 'article updated'}), 200
+
+# 路由：公開圖片目錄
+@app.route('/api/images/<path:filename>', methods=['GET'])
+def serve_file(filename):
+    return send_from_directory(app.config['UPLOAD_IMAGE_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
