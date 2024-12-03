@@ -302,6 +302,9 @@ def read(id):
 
     if not article:
         return jsonify({'error': 'article not found'}), 404
+    
+    # 修正img_url
+    article[0]["img_url"] = request.url_root + 'api/images/' + article[0]["img_url"] if article[0]["img_url"] else request.url_root + "static/B0B0B0.png"
 
     return jsonify({'article': article[0]})
 
