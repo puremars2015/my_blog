@@ -4,78 +4,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>軟體工程師的尋寶之路</title>
+    <title>環遊世界的奇妙旅程</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
-<body class="bg-gradient-to-br from-pink-50 via-blue-50 to-purple-50 text-gray-800 font-sans">
+<body class="bg-gradient-to-br from-blue-50 via-green-50 to-teal-50 text-gray-800 font-sans">
 
     <!-- Header -->
-    <header class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white shadow-md sticky top-0 z-10">
+    <header class="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 text-white shadow-md sticky top-0 z-10">
         <div class="container mx-auto flex items-center justify-between py-4 px-6">
-            <a href="/"><h1 class="text-2xl font-bold">軟體工程師的尋寶之路</h1></a>
+            <a href="/"><h1 class="text-2xl font-bold">環遊世界的奇妙旅程</h1></a>
             <nav class="space-x-4 hidden md:flex">
                 <a href="/" class="hover:underline">首頁</a>
-                <a href="/list_article/1" class="hover:underline">文章列表</a>
+                <a href="/list_article/1" class="hover:underline">旅遊札記</a>
                 <a href="/about" class="hover:underline">關於我</a>
                 <a href="/contact" class="hover:underline">聯絡我</a>
-                <a href="/calculate" class="hover:underline">小計算demo</a>
+                <a href="/calculate" class="hover:underline">旅費計算</a>
+                <a href="/edit_article" class="hover:underline">新增遊記</a>
             </nav>
         </div>
     </header>
 
-    <!-- Contact Form Section -->
+    <!-- Travel Calculator Section -->
     <section class="py-16">
         <div class="container mx-auto px-6 bg-white shadow-lg rounded-lg max-w-lg">
-            <h2 class="text-3xl font-bold text-gray-800 text-center py-6">小計算</h2>
+            <h2 class="text-3xl font-bold text-gray-800 text-center py-6">旅費計算工具</h2>
 
             <form class="space-y-6 px-6 pb-8">
-                <!-- Title Input -->
+                <!-- Trip Duration Input -->
                 <div>
-                    <label for="title_text" class="block text-lg font-medium text-gray-700">第一個數字</label>
-                    <input id="n1" type="text" required
-                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg"
-                        placeholder="輸入主旨">
+                    <label for="days" class="block text-lg font-medium text-gray-700">旅遊天數</label>
+                    <input id="days" type="number" min="1" required
+                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:outline-none text-lg"
+                        placeholder="輸入預計旅遊天數">
                 </div>
-                <!-- Content Input -->
+                <!-- Daily Budget Input -->
                 <div>
-                    <label for="content_text" class="block text-lg font-medium text-gray-700">第二個數字</label>
-                    <input id="n2" type="text" required
-                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg"
-                        placeholder="輸入主旨">
+                    <label for="daily_budget" class="block text-lg font-medium text-gray-700">每日預算 (NT$)</label>
+                    <input id="daily_budget" type="number" min="0" required
+                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:outline-none text-lg"
+                        placeholder="輸入每日花費預算">
                 </div>
-                <!-- Content Input -->
+                <!-- Flight Cost Input -->
                 <div>
-                    <label for="content_text" class="block text-lg font-medium text-gray-700">結果</label>
-                    <input id="result" type="text" required
-                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg"
-                        placeholder="輸入主旨">
+                    <label for="flight_cost" class="block text-lg font-medium text-gray-700">交通費用 (NT$)</label>
+                    <input id="flight_cost" type="number" min="0" required
+                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:outline-none text-lg"
+                        placeholder="輸入機票或其他交通費用">
                 </div>
-                <!-- Submit Button -->
+                <!-- Accommodation Cost -->
+                <div>
+                    <label for="accommodation_cost" class="block text-lg font-medium text-gray-700">住宿費用 (NT$)</label>
+                    <input id="accommodation_cost" type="number" min="0" required
+                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:outline-none text-lg"
+                        placeholder="輸入總住宿費用">
+                </div>
+                <!-- Result Output -->
+                <div>
+                    <label for="total_cost" class="block text-lg font-medium text-gray-700">總旅費 (NT$)</label>
+                    <input id="total_cost" type="text" readonly
+                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:outline-none text-lg bg-gray-50"
+                        placeholder="計算結果">
+                </div>
+                <!-- Calculate Button -->
                 <div class="pt-4">
-                    <button type="button" onclick="calculate()"
-                        class="w-full bg-purple-500 text-white px-6 py-3 rounded-lg shadow hover:bg-purple-600 transition text-lg">
-                        計算
+                    <button type="button" onclick="calculateTravelCost()"
+                        class="w-full bg-teal-500 text-white px-6 py-3 rounded-lg shadow hover:bg-teal-600 transition text-lg">
+                        計算旅費
                     </button>
                 </div>
             </form>
         </div>
     </section>
 
+    <!-- Travel Budget Tips Section -->
+    <section class="py-8">
+        <div class="container mx-auto px-6 bg-white shadow-lg rounded-lg max-w-2xl">
+            <h3 class="text-2xl font-bold text-gray-800 text-center py-4">旅遊預算小秘訣</h3>
+            
+            <div class="space-y-4 px-6 pb-8">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-gray-800">機票省錢技巧</h4>
+                    <p>使用比價網站、設定價格追蹤，選擇平日或淡季出行可節省大筆機票費用。</p>
+                </div>
+                
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-gray-800">住宿選擇</h4>
+                    <p>考慮青年旅舍、民宿或共享平台，遠離觀光區的住宿通常價格更划算。</p>
+                </div>
+                
+                <div class="bg-teal-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-gray-800">當地交通</h4>
+                    <p>研究當地的交通卡或套票，多數城市有針對觀光客的優惠交通方案。</p>
+                </div>
+                
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-gray-800">飲食安排</h4>
+                    <p>嘗試當地平價美食、街頭小吃，或選擇有廚房的住宿自己烹飪部分餐點。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-6">
+    <footer class="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 text-white py-6 mt-10">
         <div class="container mx-auto text-center px-6">
-            <p>© 2024 軟體工程師的尋寶之路 Blog. All Rights Reserved.</p>
+            <p>© 2024 環遊世界的奇妙旅程. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
-        function calculate() {
-            let v1 = document.getElementById('n1').value;
-            let v2 = document.getElementById('n2').value;
-            let result = parseInt(v1) + parseInt(v2);
-            document.getElementById('result').value = result;
+        function calculateTravelCost() {
+            // 獲取輸入值
+            const days = parseFloat(document.getElementById('days').value) || 0;
+            const dailyBudget = parseFloat(document.getElementById('daily_budget').value) || 0;
+            const flightCost = parseFloat(document.getElementById('flight_cost').value) || 0;
+            const accommodationCost = parseFloat(document.getElementById('accommodation_cost').value) || 0;
+            
+            // 計算總旅費
+            const totalCost = (days * dailyBudget) + flightCost + accommodationCost;
+            
+            // 格式化數字，添加千位分隔符
+            document.getElementById('total_cost').value = totalCost.toLocaleString('zh-TW') + ' NT$';
         }
     </script>
 

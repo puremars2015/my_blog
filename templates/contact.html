@@ -4,22 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>軟體工程師的尋寶之路</title>
+    <title>環遊世界的奇妙旅程</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
-<body class="bg-gradient-to-br from-pink-50 via-blue-50 to-purple-50 text-gray-800 font-sans">
+<body class="bg-gradient-to-br from-blue-50 via-green-50 to-teal-50 text-gray-800 font-sans">
 
     <!-- Header -->
-    <header class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white shadow-md sticky top-0 z-10">
+    <header class="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 text-white shadow-md sticky top-0 z-10">
         <div class="container mx-auto flex items-center justify-between py-4 px-6">
-            <a href="/"><h1 class="text-2xl font-bold">軟體工程師的尋寶之路</h1></a>
+            <a href="/"><h1 class="text-2xl font-bold">環遊世界的奇妙旅程</h1></a>
             <nav class="space-x-4 hidden md:flex">
                 <a href="/" class="hover:underline">首頁</a>
-                <a href="/list_article/1" class="hover:underline">文章列表</a>
+                <a href="/list_article/1" class="hover:underline">旅遊札記</a>
                 <a href="/about" class="hover:underline">關於我</a>
                 <a href="/contact" class="hover:underline">聯絡我</a>
+                <a href="/calculate" class="hover:underline">旅費計算</a>
+                <a href="/edit_article" class="hover:underline">新增遊記</a>
             </nav>
         </div>
     </header>
@@ -34,20 +36,20 @@
                 <div>
                     <label for="title_text" class="block text-lg font-medium text-gray-700">主旨</label>
                     <input id="title_text" type="text" required
-                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg"
-                        placeholder="輸入主旨">
+                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:outline-none text-lg"
+                        placeholder="例如：旅遊合作邀約、景點推薦請教">
                 </div>
                 <!-- Content Input -->
                 <div>
                     <label for="content_text" class="block text-lg font-medium text-gray-700">內容</label>
                     <textarea id="content_text" required rows="10"
-                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-500 focus:outline-none text-lg"
-                        placeholder="輸入內容"></textarea>
+                        class="mt-2 w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:outline-none text-lg"
+                        placeholder="請詳細描述您的問題或建議..."></textarea>
                 </div>
                 <!-- Submit Button -->
                 <div class="pt-4">
                     <button type="submit"
-                        class="w-full bg-purple-500 text-white px-6 py-3 rounded-lg shadow hover:bg-purple-600 transition text-lg">
+                        class="w-full bg-teal-500 text-white px-6 py-3 rounded-lg shadow hover:bg-teal-600 transition text-lg">
                         送出
                     </button>
                 </div>
@@ -56,9 +58,9 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-6">
+    <footer class="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 text-white py-6">
         <div class="container mx-auto text-center px-6">
-            <p>© 2024 軟體工程師的尋寶之路 Blog. All Rights Reserved.</p>
+            <p>© 2024 環遊世界的奇妙旅程. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -84,6 +86,9 @@
             })
                 .then(response => {
                     alert(response.data); // 顯示後端返回的訊息
+                    // 清空表單
+                    document.getElementById('title_text').value = '';
+                    document.getElementById('content_text').value = '';
                 })
                 .catch(error => {
                     if (error.response) {

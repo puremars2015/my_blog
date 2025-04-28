@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>軟體工程師的尋寶之路</title>
+    <title>環遊世界的奇妙旅程</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
         /* Print-specific styles */
         @media print {
@@ -49,19 +50,19 @@
     </style>
 </head>
 
-<body class="bg-gradient-to-br from-pink-50 via-blue-50 to-purple-50 text-gray-800 font-sans">
+<body class="bg-gradient-to-br from-blue-50 via-green-50 to-teal-50 text-gray-800 font-sans">
 
     <!-- Header -->
-    <header class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white shadow-md sticky top-0 z-10">
+    <header class="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 text-white shadow-md sticky top-0 z-10">
         <div class="container mx-auto flex items-center justify-between py-4 px-6">
-            <a href="/">
-                <h1 class="text-2xl font-bold">軟體工程師的尋寶之路</h1>
-            </a>
+            <a href="/"><h1 class="text-2xl font-bold">環遊世界的奇妙旅程</h1></a>
             <nav class="space-x-4 hidden md:flex">
                 <a href="/" class="hover:underline">首頁</a>
-                <a href="/list_article/1" class="hover:underline">文章列表</a>
+                <a href="/list_article/1" class="hover:underline">旅遊札記</a>
                 <a href="/about" class="hover:underline">關於我</a>
                 <a href="/contact" class="hover:underline">聯絡我</a>
+                <a href="/calculate" class="hover:underline">旅費計算</a>
+                <a href="/edit_article" class="hover:underline">新增遊記</a>
             </nav>
         </div>
     </header>
@@ -70,87 +71,83 @@
     <main class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
         <!-- Header Section -->
         <div class="text-center mb-10">
-            <h1 class="text-3xl font-bold text-gray-800">小馬 Sean</h1>
-            <p class="text-lg text-gray-600">系統分析師 | 專注於網站與應用程式設計開發</p>
+            <h1 class="text-3xl font-bold text-gray-800">旅行者 Nguyễn Mi Lan</h1>
+            <p class="text-lg text-gray-600">環球旅行家 | 攝影愛好者 | 美食探索者</p>
         </div>
 
         <!-- Self Introduction -->
         <section class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">自我介紹</h2>
-            <p>本人從大學畢業後就一直致力於網站與手機應用的前後端系統開發，對於網站或各種應用程式開發，有相當的經驗。曾經與團隊合作規劃執行大型專案，也曾獨力為商家建構網站。我喜歡與人合作，喜歡將一個一個產品落實的成就感。</p>
+            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-teal-500 pb-2 mb-4">關於我</h2>
+            <p>嗨！我是Nguyễn Mi Lan，一個熱愛探索世界各地美景與文化的旅行者。從大學畢業後，我立志要用雙腳丈量世界的每一個角落。目前已走過亞洲、歐洲和北美洲的20多個國家。我不只是走馬看花的旅遊，更喜歡深入當地文化，體驗在地生活方式，品嚐道地美食，結交各國朋友。透過這個部落格，我希望能與大家分享我的旅行經驗、攝影作品以及旅途中的心得與故事。</p>
         </section>
 
-        <!-- Work Experience -->
+        <!-- Travel Experience -->
         <section class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">工作經驗</h2>
+            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-teal-500 pb-2 mb-4">旅行足跡</h2>
             <ul class="space-y-4">
                 <li>
-                    <strong class="block text-lg text-gray-800">2022-09 ~ 現在 | 前進國際 | 系統分析師</strong>
+                    <strong class="block text-lg text-gray-800">2023-10 ~ 2023-12 | 東南亞之旅</strong>
                     <ul class="list-disc pl-6 space-y-2">
-                        <li>與客戶討論需求，進行系統分析，並進行規格書撰寫，協助客戶確認需求與規格。</li>
-                        <li>提供規格並說明需求予工程師開發。</li>
-                        <li>測試條件撰寫，自動測試開發。</li>
+                        <li>探索泰國的寺廟與街頭美食，體驗傳統泰式按摩與水上市場。</li>
+                        <li>漫步越南河內古老街道，品嚐地道越南河粉與法式麵包。</li>
+                        <li>在柬埔寨吳哥窟日出日落，感受千年古剎的神秘氛圍。</li>
                     </ul>
                 </li>
                 <li>
-                    <strong class="block text-lg text-gray-800">2022-05 ~ 2022-08 | 復華高中 | 代理資訊教師</strong>
+                    <strong class="block text-lg text-gray-800">2022-05 ~ 2022-08 | 歐洲背包行</strong>
                     <ul class="list-disc pl-6 space-y-2">
-                        <li>開發學校需要之 App。</li>
-                        <li>已經上架復華幼兒園app & 復華報修app</li>
+                        <li>漫步在巴黎的塞納河畔，探索羅浮宮的藝術珍寶。</li>
+                        <li>徜徉在羅馬的古蹟中，感受帝國的壯麗與輝煌。</li>
+                        <li>搭乘威尼斯貢多拉，探索水都的浪漫與神祕。</li>
                     </ul>
                 </li>
                 <li>
-                    <strong class="block text-lg text-gray-800">2021-01 ~ 2021-10 | TC Gaming | 顧問</strong>
+                    <strong class="block text-lg text-gray-800">2021-01 ~ 2021-03 | 日本深度遊</strong>
                     <ul class="list-disc pl-6 space-y-2">
-                        <li>協助客戶判斷系統問題。</li>
-                        <li>協調軟硬體工程師解決系統問題。</li>
-                        <li>協助財務處理報表相關問題 (Oracle Database)。</li>
-                        <li>監督與規劃確保開發人員修正進度符合預期。</li>
+                        <li>體驗京都的和服文化與古寺之美。</li>
+                        <li>在北海道感受壯麗雪景與天然溫泉。</li>
+                        <li>探索東京的現代都市風貌與傳統文化的融合。</li>
                     </ul>
                 </li>
                 <li>
-                    <strong class="block text-lg text-gray-800">2016-05 ~ 2020-12 | 昕力資訊 | 軟體開發工程師</strong>
+                    <strong class="block text-lg text-gray-800">2019-06 ~ 2019-08 | 紐西蘭自駕遊</strong>
                     <ul class="list-disc pl-6 space-y-2">
-                        <li>網站前端開發：Angular、JavaScript、HTML、CSS、SCSS。</li>
-                        <li>後端開發：C#.NET、SQL Server。</li>
-                        <li>手機開發：Android、Java。</li>
-                        <li>參與專案：富邦 MAPP 投保系統、一卡通 X LinePay 支付系統、高市府城市幣後台開發等。</li>
-                    </ul>
-                </li>
-                <li>
-                    <strong class="block text-lg text-gray-800">2014-09 ~ 2016-04 | 希達資訊 | 工程師</strong>
-                    <ul class="list-disc pl-6 space-y-2">
-                        <li>電腦硬體相關維修與布建。</li>
-                        <li>協助操作 Linux (CentOS) 系統，架設網站，設定權限控制。</li>
-                        <li>協助學校網站撰寫 (PHP)。</li>
+                        <li>南島自駕，探索皇后鎮、米佛峽灣的壯麗風光。</li>
+                        <li>挑戰各種極限運動，包括蹦極、滑翔傘和高空彈跳。</li>
+                        <li>參觀霍比特人村，重溫《魔戒》電影場景。</li>
                     </ul>
                 </li>
             </ul>
         </section>
 
-        <!-- Education -->
+        <!-- Photography Skills -->
         <section class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">學歷</h2>
+            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-teal-500 pb-2 mb-4">攝影裝備</h2>
             <ul class="list-disc pl-6 space-y-2">
-                <li><strong>2010-09 ~ 2014-06 | 國立台東大學 | 資訊工程學系</strong></li>
+                <li><strong>相機：</strong>Sony A7R IV</li>
+                <li><strong>鏡頭：</strong>Sony 24-70mm f/2.8 GM, Sony 16-35mm f/2.8 GM, Sony 70-200mm f/2.8 GM</li>
+                <li><strong>其他裝備：</strong>DJI Mavic 3 Pro, GoPro Hero 11 Black, 三腳架, ND濾鏡組</li>
             </ul>
         </section>
 
-        <!-- Certifications -->
+        <!-- Contact for Collaboration -->
         <section class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-purple-500 pb-2 mb-4">證照</h2>
-            <ul class="list-disc pl-6 space-y-2">
-                <li>中華企業資源規劃協會 - BI 規劃師</li>
-            </ul>
+            <h2 class="text-2xl font-bold text-gray-700 border-b-2 border-teal-500 pb-2 mb-4">合作邀約</h2>
+            <p>如果您有旅遊相關的合作機會，包括但不限於景點推廣、飯店評測、旅遊裝備體驗等，歡迎透過「聯絡我」頁面與我聯繫。我很樂意與您討論可能的合作方式！</p>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-6 mt-10">
+    <footer class="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 text-white py-6 mt-10">
         <div class="container mx-auto text-center px-6">
-            <p>© 2024 軟體工程師的尋寶之路 Blog. All Rights Reserved.</p>
+            <p>© 2024 環遊世界的奇妙旅程. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // JavaScript 代碼保留，但移除了不再需要的函數
+    </script>
 
 </body>
 

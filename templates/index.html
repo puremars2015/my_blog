@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>軟體工程師的尋寶之路</title>
+  <title>環遊世界的奇妙旅程</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-br from-pink-50 via-blue-50 to-purple-50 text-gray-800 font-sans">
+<body class="bg-gradient-to-br from-blue-50 via-green-50 to-teal-50 text-gray-800 font-sans">
 
   <!-- Header -->
-  <header class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white shadow-md sticky top-0 z-10">
+  <header class="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 text-white shadow-md sticky top-0 z-10">
     <div class="container mx-auto flex items-center justify-between py-4 px-6">
-      <a href="/"><h1 class="text-2xl font-bold">軟體工程師的尋寶之路</h1></a>
+      <a href="/"><h1 class="text-2xl font-bold">環遊世界的奇妙旅程</h1></a>
       <nav class="space-x-4 hidden md:flex">
         <a href="/" class="hover:underline">首頁</a>
-        <a href="/list_article/1" class="hover:underline">文章列表</a>
+        <a href="/list_article/1" class="hover:underline">旅遊札記</a>
         <a href="/about" class="hover:underline">關於我</a>
         <a href="/contact" class="hover:underline">聯絡我</a>
-        <a href="/calculate" class="hover:underline">小計算demo</a>
-        <a href="/edit_article" class="hover:underline">編輯文章</a>
+        <a href="/calculate" class="hover:underline">旅費計算</a>
+        <a href="/edit_article" class="hover:underline">新增遊記</a>
       </nav>
       <button class="md:hidden focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
@@ -29,23 +29,23 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 py-16">
+  <section class="bg-gradient-to-r from-blue-100 via-teal-100 to-green-100 py-16">
     <div class="container mx-auto text-center px-6">
-      <h2 class="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">懂錢的人才會有錢</h2>
-      <p class="mt-4 text-gray-700 text-lg">這裡是一個利用專業技術，探索金融市場的頻道</p>
-      <a href="/list_article/1" class="mt-6 inline-block bg-purple-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-purple-600 transition">閱讀文章</a>
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">探索未知，感受世界</h2>
+      <p class="mt-4 text-gray-700 text-lg">這裡是分享旅遊經驗、景點推薦和文化體驗的專屬頻道</p>
+      <a href="/list_article/1" class="mt-6 inline-block bg-teal-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-teal-600 transition">閱讀旅遊札記</a>
     </div>
   </section>
 
   <!-- Articles Section -->
   <section id="articles" class="py-16">
     <div class="container mx-auto px-6">
-      <h3 class="text-3xl font-bold text-gray-800 text-center">最新文章</h3>
+      <h3 class="text-3xl font-bold text-gray-800 text-center">最新遊記</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
 
         {% for article in articles %}
         <div class="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transform transition">
-          <img src="{{ article.img_url }}" alt="文章圖片" class="w-full h-48 object-cover">
+          <img src="{{ article.img_url }}" alt="旅遊圖片" class="w-full h-48 object-cover">
           <div class="p-6">
             <h4 class="text-xl font-bold text-gray-900">{{ article.title }}</h4>
             <p class="mt-2 text-gray-600">{{ article.description }}</p>
@@ -59,17 +59,17 @@
   </section>
 
   <!-- About Section -->
-  <section id="about" class="bg-gradient-to-r from-pink-200 via-blue-200 to-purple-200 py-16">
+  <section id="about" class="bg-gradient-to-r from-blue-200 via-teal-200 to-green-200 py-16">
     <div class="container mx-auto text-center px-6">
       <h3 class="text-3xl font-bold text-gray-800">關於我</h3>
-      <p class="mt-4 text-gray-700">我是一個喜歡研究財金問題的工程師，透過文字紀錄我的研究成果點滴。希望在這裡，你也能找到屬於自己的共鳴。</p>
+      <p class="mt-4 text-gray-700">我是一個熱愛旅遊的冒險家，透過文字與照片記錄世界各地的風景與人文。在這個空間，與你分享我的旅途見聞與體驗。</p>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-6">
+  <footer class="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 text-white py-6">
     <div class="container mx-auto text-center px-6">
-      <p>© 2024 軟體工程師的尋寶之路 Blog. All Rights Reserved.</p>
+      <p>© 2024 環遊世界的奇妙旅程. All Rights Reserved.</p>
     </div>
   </footer>
 

@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>軟體工程師的尋寶之路</title>
+  <title>環遊世界的奇妙旅程</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <!-- CKEditor 4 -->
   <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
 </head>
-<body class="bg-gradient-to-br from-pink-50 via-blue-50 to-purple-50 text-gray-800 font-sans">
+<body class="bg-gradient-to-br from-blue-50 via-green-50 to-teal-50 text-gray-800 font-sans">
 
   <!-- Header -->
-  <header class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white shadow-md sticky top-0 z-10">
+  <header class="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 text-white shadow-md sticky top-0 z-10">
     <div class="container mx-auto flex items-center justify-between py-4 px-6">
-      <a href="/"><h1 class="text-2xl font-bold">軟體工程師的尋寶之路</h1></a>
+      <a href="/"><h1 class="text-2xl font-bold">環遊世界的奇妙旅程</h1></a>
       <nav class="space-x-4 hidden md:flex">
         <a href="/" class="hover:underline">首頁</a>
-        <a href="/list_article/1" class="hover:underline">文章列表</a>
+        <a href="/list_article/1" class="hover:underline">旅遊札記</a>
         <a href="/about" class="hover:underline">關於我</a>
         <a href="/contact" class="hover:underline">聯絡我</a>
+        <a href="/calculate" class="hover:underline">旅費計算</a>
       </nav>
     </div>
   </header>
@@ -27,42 +28,42 @@
   <!-- Content Section -->
   <section class="py-16">
     <div class="container mx-auto px-6 bg-white shadow-lg rounded-lg">
-      <h2 class="text-3xl font-bold text-gray-800 text-center py-6">撰寫新文章</h2>
+      <h2 class="text-3xl font-bold text-gray-800 text-center py-6">撰寫新旅遊札記</h2>
 
       <form class="space-y-6 px-8 py-6">
         <!-- Title Input -->
         <div>
-          <label for="title" class="block text-lg font-medium text-gray-700">文章標題</label>
+          <label for="title" class="block text-lg font-medium text-gray-700">遊記標題</label>
           <input
             type="text"
             id="title"
             name="title"
-            class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="輸入文章標題"
+            class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:outline-none"
+            placeholder="輸入遊記標題"
           >
         </div>
 
         <!-- Picture Input -->
         <div>
-          <label for="picture" class="block text-lg font-medium text-gray-700">文章圖片</label>
+          <label for="picture" class="block text-lg font-medium text-gray-700">旅遊照片</label>
           <input
             type="file"
             id="upload_picture"
             name="upload_picture"
-            class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="選擇圖片"
+            class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:outline-none"
+            placeholder="選擇照片"
           >
         </div>
 
         <!-- CKEditor Content Input -->
         <div>
-          <label for="content" class="block text-lg font-medium text-gray-700">文章內容</label>
+          <label for="content" class="block text-lg font-medium text-gray-700">遊記內容</label>
           <textarea
             id="content"
             name="content"
             rows="10"
-            class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-500 focus:outline-none"
-            placeholder="在此輸入文章內容..."></textarea>
+            class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:outline-none"
+            placeholder="在此分享你的旅遊體驗、景點介紹與美食推薦..."></textarea>
         </div>
 
         <!-- Buttons -->
@@ -76,9 +77,9 @@
           <button
             type="submit"
             onclick="submitForm(event)"
-            class="bg-purple-500 text-white px-6 py-2 rounded-lg shadow hover:bg-purple-600 transition"
+            class="bg-teal-500 text-white px-6 py-2 rounded-lg shadow hover:bg-teal-600 transition"
           >
-            儲存文章
+            儲存遊記
           </button>
         </div>
       </form>
@@ -86,9 +87,9 @@
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-6 mt-10">
+  <footer class="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 text-white py-6 mt-10">
     <div class="container mx-auto text-center px-6">
-      <p>© 2024 軟體工程師的尋寶之路 Blog. All Rights Reserved.</p>
+      <p>© 2024 環遊世界的奇妙旅程. All Rights Reserved.</p>
     </div>
   </footer>
 
@@ -126,7 +127,7 @@
         const picture = document.getElementById('upload_picture');
 
         if (!picture.files.length) {
-          message.textContent = '請選擇圖片檔案！';
+          alert('請選擇圖片檔案！');
           return;
         }
 
@@ -138,7 +139,7 @@
 
         // 驗證表單資料
         if (!title || !content) {
-            alert('主旨與內容皆為必填');
+            alert('標題與內容皆為必填');
             return;
         }
 

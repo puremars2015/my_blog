@@ -59,7 +59,7 @@ def index():
     # 將articles轉型為上面的形式, 並將img_url轉換成網址, 如果沒有圖片就用預設圖片
     articles = [
         {
-            "img_url": request.url_root + 'api/images/' + article["img_url"] if article["img_url"] else request.url_root + "static/B0B0B0.png",
+            "img_url": request.url_root + 'api/images/' + article.get("img_url", "") if article.get("img_url") else request.url_root + "static/B0B0B0.png",
             "title": article["title"],
             # 把content當作description, 但要修改內容變成30個字以內
             "description": article["content"][:30] + "...",
@@ -97,9 +97,7 @@ def read_article(id):
     article = db.execute_read_query("SELECT * FROM articles WHERE id=?", (id,))
     db.close_connection()
 
-    request.url_root + 'api/images/'
-
-    return render_template('read_article.html', title=article[0]["title"], content=article[0]["content"], img_url= request.url_root + 'api/images/' + article[0]["img_url"] if article[0]["img_url"] else request.url_root + "static/B0B0B0.png")
+    return render_template('read_article.html', title=article[0]["title"], content=article[0]["content"], img_url= request.url_root + 'api/images/' + article[0].get("img_url", "") if article[0].get("img_url") else request.url_root + "static/B0B0B0.png")
 
 # 讀取文章內容
 @app.route('/list_article/<int:page>')
@@ -151,7 +149,7 @@ def list_article(page):
     # 將articles轉型為上面的形式
     articles = [
         {
-            "img_url": request.url_root + 'api/images/' + article["img_url"] if article["img_url"] else request.url_root + "static/B0B0B0.png",
+            "img_url": request.url_root + 'api/images/' + article.get("img_url", "") if article.get("img_url") else request.url_root + "static/B0B0B0.png",
             "title": article["title"],
             # 把content當作description, 但要修改內容變成100個字以內
             "description": article["content"][:100] + "...",
@@ -281,7 +279,7 @@ def readlist():
     # 將articles轉型為上面的形式
     articles = [
         {
-            "img_url": request.url_root + 'api/images/' + article["img_url"] if article["img_url"] else request.url_root + "static/B0B0B0.png",
+            "img_url": request.url_root + 'api/images/' + article.get("img_url", "") if article.get("img_url") else request.url_root + "static/B0B0B0.png",
             "title": article["title"],
             # 把content當作description, 但要修改內容變成30個字以內
             "content": article["content"][:100] + "...",
@@ -304,7 +302,7 @@ def read(id):
         return jsonify({'error': 'article not found'}), 404
     
     # 修正img_url
-    article[0]["img_url"] = request.url_root + 'api/images/' + article[0]["img_url"] if article[0]["img_url"] else request.url_root + "static/B0B0B0.png"
+    article[0]["img_url"] = request.url_root + 'api/images/' + article[0].get("img_url", "") if article[0].get("img_url") else request.url_root + "static/B0B0B0.png"
 
     return jsonify({'article': article[0]})
 
@@ -333,4 +331,4 @@ def serve_file(filename):
     return send_from_directory(app.config['UPLOAD_IMAGE_FOLDER'], filename)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True)

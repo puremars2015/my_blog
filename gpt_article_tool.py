@@ -6,7 +6,7 @@ import time
 # 使用chatgpt生成文章
 def generate_article():
     gpt = MyGPT()
-    title = gpt.AskGPT("請幫我想一個標題,主要要跟python,人工智慧,還有財務工程有關,一個就好,且是繁體中文的標題")
+    title = gpt.AskGPT("請幫我想一個標題,主要跟越南各地文化與風景有關,且是繁體中文的標題")
     img_url = gpt.make_image(title)
 
     # 用時間產生檔案名稱
