@@ -18,7 +18,7 @@ class MyGPT:
 
 
     __model__ = "gpt-4o-mini"
-    __advanced_model__ = "gpt-4o-mini"
+    __advanced_model__ = "o3-mini"
 
 
     def __init__(self):
@@ -40,7 +40,15 @@ class MyGPT:
     def AskGPT(self, msg) -> str:
         completion = self.openai.chat.completions.create(
             model=self.__model__,
-            frequency_penalty=2,
+            messages=[
+                {"role": "user", "content": f"{msg}"}
+            ]
+        )
+        return completion.choices[0].message.content
+    
+    def AskAdvancedGPT(self, msg) -> str:
+        completion = self.openai.chat.completions.create(
+            model=self.__advanced_model__,
             messages=[
                 {"role": "user", "content": f"{msg}"}
             ]
