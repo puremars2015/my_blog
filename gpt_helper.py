@@ -18,7 +18,7 @@ class MyGPT:
 
 
     __model__ = "gpt-4o-mini"
-    __advanced_model__ = "o3-mini"
+    __advanced_model__ = "gpt-4o"
 
 
     def __init__(self):
